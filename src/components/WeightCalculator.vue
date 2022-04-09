@@ -3,8 +3,8 @@
     <h1>calculate items</h1>
     <form action="" method="POST">
       <input type="text" name="charge" v-model="charge" id="charge" placeholder="value" />
-      <select name="pets" v-model="percent" id="select-items" > 
-        <option value="" selected disabled hidden>Choose</option>
+      <select name="pets" v-model="selected" id="select-items" > 
+        <option value="Choose" selected disabled hidden>Choose</option>
         <option value="0.70" >70%</option>
         <option value="0.75">75%</option>
         <option value="0.80">80%</option>
@@ -33,7 +33,7 @@ export default {
   data() {
     return {
       charge: 20,
-      percent: 0,
+      selected: 'Choose',
       listResult: [],
       percentArray: [0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9, 0.95, 1],
     };
@@ -41,14 +41,16 @@ export default {
   methods: {
     weightCalc() {
       this.listResult = [];
-      if (this.percent > 0) {
+      if (this.selected > 0) {
         this.percentArray.forEach((items) => {
-          let weight = parseInt((this.charge * items) / this.percent);
+          let weight = parseInt((this.charge * items) / this.selected);
   
           this.listResult.push({weight, items});
           // console.log(items + " " + weight);
         });
 
+      } else {
+        console.log(this.selected, 'no');
       }
     },
   },
@@ -72,7 +74,6 @@ h1 {
 
 form {
   border-radius: 5px;
-  /* background-color: #dd6662; */
   background-color: #77c2a0;
   padding: 15px;
 }
@@ -98,17 +99,14 @@ select:focus{
   outline: none;
 }
 
-select::after{
+/* select::after{
   background: rgb(206, 206, 206);
   border: 2px solid green;  
-}
-select::after, select:hover::after, select:hover {
-  /* background: red;
-  color: green; */
-}
-.no-pointer-events select:after {
+} */
+
+/* .no-pointer-events select:after {
   content: none;
-}
+} */
 
 ul {
   list-style-type: none;
