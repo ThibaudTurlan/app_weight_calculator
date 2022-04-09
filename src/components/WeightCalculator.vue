@@ -1,9 +1,9 @@
 <template>
   <main>
-    <h1>calculate percentage</h1>
+    <h1>calculate items</h1>
     <form action="" method="POST">
       <input type="text" name="charge" v-model="charge" id="charge" placeholder="value" />
-      <select name="pets" v-model="percent" id="select-percentage" > 
+      <select name="pets" v-model="percent" id="select-items" > 
         <option value="" selected disabled hidden>Choose</option>
         <option value="0.70" >70%</option>
         <option value="0.75">75%</option>
@@ -21,7 +21,7 @@
     <div id="block-result">
         <ul>
           <li v-for="item in listResult" :key="item">
-            {{ item.percentage * 100 }} % - {{ item.weight }} kg 
+            {{ item.items * 100 }} % - {{ item.weight }} kg 
           </li>
         </ul>
     </div>  
@@ -41,12 +41,15 @@ export default {
   methods: {
     weightCalc() {
       this.listResult = [];
-      this.percentArray.forEach((percentage) => {
-        let weight = parseInt((this.charge * percentage) / this.percent);
+      if (this.percent > 0) {
+        this.percentArray.forEach((items) => {
+          let weight = parseInt((this.charge * items) / this.percent);
+  
+          this.listResult.push({weight, items});
+          // console.log(items + " " + weight);
+        });
 
-        this.listResult.push({weight, percentage});
-        // console.log(percentage + " " + weight);
-      });
+      }
     },
   },
 };
