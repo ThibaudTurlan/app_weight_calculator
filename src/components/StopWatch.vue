@@ -4,7 +4,15 @@
     <button id="btn-calc" @click="start">Start</button>
     <button id="btn-calc" @click="stop">Stop</button>
     <button id="btn-calc" @click="reset">reset</button>
+    <button id="btn-calc" @click="lap">lap</button>
   </div>
+  <div id="block-lap">
+        <ul>
+          <li v-for="item in laps" :key="item">
+            {{ item }} 
+          </li>
+        </ul>
+    </div>  
 </template>
 
 <script>
@@ -19,6 +27,7 @@ export default {
       stoppedDuration: 0,
       started: null,
       running: false,
+      laps: [],
     };
   },  
   methods: {
@@ -27,7 +36,7 @@ export default {
     
       if (this.timeBegan === null) {
         this.reset();
-        this.timeBegan = new Date();
+        this.timeBegan = 0;
       }
 
       if (this.imeStopped !== null) {
@@ -49,14 +58,21 @@ export default {
       this.timeBegan = null;
       this.timeStopped = null;
       this.time = "00:00:00.000";
+      this.laps = [];
+    },
+    lap(){
+      this.laps.push(this.time);
+      console.log(this.laps);
     },
     clockRunning(){
-      let currentTime = new Date()
-      , timeElapsed = new Date(currentTime - this.timeBegan - this.stoppedDuration)
-      , hour = timeElapsed.getUTCHours()
-      , min = timeElapsed.getUTCMinutes()
-      , sec = timeElapsed.getUTCSeconds()
-      , ms = timeElapsed.getUTCMilliseconds();
+      let currentTime = new Date();
+      let timeElapsed = new Date(currentTime - this.timeBegan - this.stoppedDuration);
+      let hour = timeElapsed.getUTCHours();
+      let min = timeElapsed.getUTCMinutes();
+      let sec = timeElapsed.getUTCSeconds();
+      let ms = timeElapsed.getUTCMilliseconds();
+
+      console.log(this.zeroPrefix(hour, 3));
       
       this.time = 
         this.zeroPrefix(hour, 2) + ":" + 
