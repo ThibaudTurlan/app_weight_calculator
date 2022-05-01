@@ -1,18 +1,20 @@
 <template>
-  <div>
+  <div class="stopwatch">
     <span class="time">{{ time }}</span>
-    <button id="btn-calc" @click="start">Start</button>
-    <button id="btn-calc" @click="stop">Stop</button>
-    <button id="btn-calc" @click="reset">reset</button>
-    <button id="btn-calc" @click="lap">lap</button>
+
+    <div class="stopwatch__action">
+      <button class="btn-rest" @click="reset" v-if="isActive">Reset</button>
+      <button class="btn-lap" @click="lap" v-if="!isActive">Lap</button>
+      <button class="btn-start" @click="start" v-if="isActive">Start</button>
+      <button class="btn-stop" @click="stop"  v-if="!isActive">Stop</button>
+    </div>
+    
   </div>
   <div id="block-lap">
-        <ul>
-          <li v-for="item in laps" :key="item">
-            {{ item }} 
-          </li>
-        </ul>
-    </div>  
+    <ul class="laps">
+      <li v-for="(item, index) in laps" :key="index">Lap {{index + 1}} {{ item }}</li>
+    </ul>
+  </div>  
 </template>
 
 <script>
@@ -21,19 +23,22 @@ export default {
   name: "app",
   data() {
     return {
-      time: '00:00:00.000',
+      time: '00:00,00',
       timeBegan: null,
       timeStopped: null,
       stoppedDuration: 0,
       started: null,
       running: false,
       laps: [],
+      isActive: true,
     };
   },  
   methods: {
     start(){
       if(this.running) return;
-    
+      this.isActive = !this.isActive;
+      console.log(this.isActive);
+
       if (this.timeBegan === null) {
         this.reset();
         this.timeBegan = 0;
@@ -48,6 +53,7 @@ export default {
     },
     stop() {
       this.running = false;
+      this.isActive = !this.isActive
       this.timeStopped = new Date();
       clearInterval(this.started);
     },
@@ -60,7 +66,7 @@ export default {
       this.time = "00:00:00.000";
       this.laps = [];
     },
-    lap(){
+    lap() {
       this.laps.push(this.time);
       console.log(this.laps);
     },
@@ -71,8 +77,6 @@ export default {
       let min = timeElapsed.getUTCMinutes();
       let sec = timeElapsed.getUTCSeconds();
       let ms = timeElapsed.getUTCMilliseconds();
-
-      console.log(this.zeroPrefix(hour, 3));
       
       this.time = 
         this.zeroPrefix(hour, 2) + ":" + 
@@ -90,3 +94,97 @@ export default {
   },
 };
 </script>
+
+<style lang="css">
+ 
+html, body {
+  background-color: #0f0f0f;
+
+}
+
+.stopwatch {
+  /*  */
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	font-weight: 300;
+	margin: 60px auto 0;
+	width: 90vw;
+	min-width: 300px;
+	max-width: 400px;
+	text-align: center;
+}
+
+.time {
+	font-size: 68px;
+	height: 1em;
+	line-height: 1em;
+	display: inline-block;
+	overflow: hidden;
+	animation-name: none;
+	animation-play-state: paused;
+	margin-bottom: 60px;
+	color: #fff;
+}
+
+.stopwatch__action {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.btn-start,
+.btn-stop,
+.btn-rest,
+.btn-lap {
+	cursor: pointer;
+	font-size: 16px;
+	border: 2px solid #353535;
+	background-color: #353535;
+	box-shadow: inset 0 0 0 2px #0f0f0f;
+	color: #ccc;
+	width: 80px;
+	border-radius: 100%;
+	text-align: center;
+	line-height: 76px;
+}
+
+.btn-start {
+  background-color: #182e1c;
+	border-color: #182e1c;
+	color: #42cc57;
+}
+
+.btn-stop {
+  background-color: #351614;
+	border-color: #351614;
+	color: #ff352c;
+}
+
+.laps {
+	counter-reset: laps;
+	list-style: none;
+	margin: 0;
+	padding-left: 0;
+	border-top: 1px solid #333;
+	font-size: 16px;
+}
+
+.laps li {
+	color: #666;
+	text-align: right;
+	position: relative;
+	border-bottom: 1px solid #333;
+	padding-top: 1em;
+	height: 3em;
+}
+
+.laps li::before {
+	counter-increment: laps;
+	content: "Lap " counter(laps);
+	visibility: hidden;
+	color: inherit;
+	line-height: 3em;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+</style>
