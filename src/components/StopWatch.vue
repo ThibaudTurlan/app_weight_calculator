@@ -12,7 +12,7 @@
   </div>
   <div id="block-lap">
     <ul class="laps">
-      <li v-for="(item, index) in laps" :key="index">Lap {{index + 1}} {{ item }}</li>
+      <li v-for="(item, index) in laps" :key="index"><span>Lap {{index + 1}}</span> <span>{{ item }}</span></li>
     </ul>
   </div>  
 </template>
@@ -63,12 +63,12 @@ export default {
       this.stoppedDuration = 0;
       this.timeBegan = null;
       this.timeStopped = null;
-      this.time = "00:00:00.000";
+      this.time = "00:00.00";
       this.laps = [];
     },
     lap() {
       this.laps.push(this.time);
-      console.log(this.laps);
+      console.log(this.timeBegan);
     },
     clockRunning(){
       let currentTime = new Date();
@@ -81,8 +81,9 @@ export default {
       this.time = 
         this.zeroPrefix(hour, 2) + ":" + 
         this.zeroPrefix(min, 2) + ":" + 
-        this.zeroPrefix(sec, 2) + "." + 
-        this.zeroPrefix(ms, 3);
+        this.zeroPrefix(sec, 2) + "," + 
+        this.zeroPrefix(ms, 2);
+      
     },
     zeroPrefix(num, digit) {
       var zero = '';
@@ -96,15 +97,15 @@ export default {
 </script>
 
 <style lang="css">
- 
+  
 html, body {
   background-color: #0f0f0f;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 }
 
 .stopwatch {
   /*  */
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
 	font-weight: 300;
 	margin: 60px auto 0;
 	width: 90vw;
@@ -123,11 +124,13 @@ html, body {
 	animation-play-state: paused;
 	margin-bottom: 60px;
 	color: #fff;
+  
 }
 
 .stopwatch__action {
   display: flex;
   justify-content: space-between;
+  margin-bottom: 10px;
 
 }
 
@@ -169,22 +172,13 @@ html, body {
 }
 
 .laps li {
-	color: #666;
-	text-align: right;
+  display: flex;
+  justify-content: space-between;
+  color: #ffffff;
+	
 	position: relative;
 	border-bottom: 1px solid #333;
 	padding-top: 1em;
 	height: 3em;
-}
-
-.laps li::before {
-	counter-increment: laps;
-	content: "Lap " counter(laps);
-	visibility: hidden;
-	color: inherit;
-	line-height: 3em;
-	position: absolute;
-	left: 0;
-	top: 0;
 }
 </style>
