@@ -1,31 +1,33 @@
 <template>
-  <main>
-    <h1>calculate items</h1>
-    <form action="" method="POST">
-      <input type="text" name="charge" v-model="charge" id="charge" placeholder="value" />
-      <select name="pets" v-model="selected" id="select-items" > 
-        <option value="Choose" selected disabled hidden>Choose</option>
-        <option value="0.70" >70%</option>
-        <option value="0.75">75%</option>
-        <option value="0.80">80%</option>
-        <option value="0.85">85%</option>
-        <option value="0.90">90%</option>
-        <option value="0.95">95%</option>
-        <option value="1">100%</option>
-      </select>
-      <button type="button" id="btn-calc" @click="weightCalc()">
-        calculate
-      </button>
-    </form>
-    <hr />
-    <div id="block-result">
-        <ul>
-          <li v-for="item in listResult" :key="item">
-            {{ item.items * 100 }} % - {{ item.weight }} kg 
-          </li>
-        </ul>
-    </div>  
-  </main>
+  <div class="container">
+    <main>
+      <h1>calculate items</h1>
+      <form action="" method="POST">
+        <input type="text" name="charge" v-model="charge" id="charge" placeholder="value" />
+        <select name="pets" v-model="selected" id="select-items" > 
+          <option value="Choose" selected disabled hidden>Choose</option>
+          <option value="0.70" >70%</option>
+          <option value="0.75">75%</option>
+          <option value="0.80">80%</option>
+          <option value="0.85">85%</option>
+          <option value="0.90">90%</option>
+          <option value="0.95">95%</option>
+          <option value="1">100%</option>
+        </select>
+        <button type="button" id="btn-calc" @click="weightCalc()">
+          calculate
+        </button>
+      </form>
+      <hr />
+      <div id="block-result">
+          <ul>
+            <li v-for="item in listResult" :key="item">
+              {{ item.items * 100 }} % - {{ item.weight }} kg 
+            </li>
+          </ul>
+      </div>  
+    </main>
+  </div>
 </template>
 
 <script>
@@ -59,10 +61,17 @@ export default {
 
 <style scoped>
 
+.container {
+  widows: 100vw;
+  height: 100vh;
+  background-color: #42b983;
+}
+
 main {
   width: 350px;
   margin: 0 auto;
   padding: 10px;
+  
 }
 
 h1 {

@@ -1,20 +1,22 @@
 <template>
-  <div class="stopwatch">
-    <span class="time">{{ time }}</span>
+  <div class="container">
+    <div class="stopwatch">
+      <span class="time">{{ time }}</span>
 
-    <div class="stopwatch__action">
-      <button class="btn-rest" @click="reset" v-if="isActive">Reset</button>
-      <button class="btn-lap" @click="lap" v-if="!isActive">Lap</button>
-      <button class="btn-start" @click="start" v-if="isActive">Start</button>
-      <button class="btn-stop" @click="stop"  v-if="!isActive">Stop</button>
+      <div class="stopwatch__action">
+        <button class="btn-rest" @click="reset" v-if="isActive">Reset</button>
+        <button class="btn-lap" @click="lap" v-if="!isActive">Lap</button>
+        <button class="btn-start" @click="start" v-if="isActive">Start</button>
+        <button class="btn-stop" @click="stop"  v-if="!isActive">Stop</button>
+      </div>
+      
     </div>
-    
+    <div id="block-lap">
+      <ul class="laps">
+        <li v-for="(item, index) in laps" :key="index"><span>Lap {{index + 1}}</span> <span>{{ item }}</span></li>
+      </ul>
+    </div>  
   </div>
-  <div id="block-lap">
-    <ul class="laps">
-      <li v-for="(item, index) in laps" :key="index"><span>Lap {{index + 1}}</span> <span>{{ item }}</span></li>
-    </ul>
-  </div>  
 </template>
 
 <script>
@@ -96,18 +98,21 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style scoped>
   
-html, body {
-  background-color: #0f0f0f;
+.container {
+  width: 100vw;
+  height: 100vh;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-
+  background-color: #0f0f0f;
+  /* margin-bottom: 60px; */
+  padding-top: 60px;
 }
 
 .stopwatch {
   /*  */
 	font-weight: 300;
-	margin: 60px auto 0;
+	margin:  0 auto;
 	width: 90vw;
 	min-width: 300px;
 	max-width: 400px;

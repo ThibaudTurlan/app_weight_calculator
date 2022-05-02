@@ -1,8 +1,8 @@
 <template>
-  <nav>
+  <!-- <nav>
     <router-link to="/">Home</router-link> |
     <router-link to="/about">StopWatch</router-link>
-  </nav>
+  </nav> -->
   <!--  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
   <nav class="nav">
@@ -27,13 +27,13 @@
   <router-view />
 </template>
 
-<style>
+<style lang="css">
 html,
 body {
   margin: 0;
   padding: 0;
   /* background-color: #d95550; */
-  background-color: #42b983;
+  /* background-color: #42b983; */
   /* font-family: sans-serif; */
   /* color: #fff; */
 }
