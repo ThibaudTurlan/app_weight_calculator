@@ -6,20 +6,22 @@
   <!--  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
   <nav class="nav">
-    <router-link to="/weight" class="nav__link nav__link--active">
+    <router-link to="/weight" class="nav__link nav__link">
       <font-awesome-icon icon="weight-hanging" size="xl" />
       <span class="nav__text">Weight</span>
     </router-link>
-    <router-link to="/stopwatch" ></router-link>
-    <router-link to="/history" ></router-link>
-    <a href="#" class="nav__link">
+    <router-link to="/stopwatch" class="nav__link nav__link">
       <font-awesome-icon icon="stopwatch" size="xl" />
-      <span class="nav__text">Stopwatch</span>
-    </a>
-    <a href="#" class="nav__link">
-      <i class="material-icons nav__icon">settings</i>
-      <span class="nav__text">Settings</span>
-    </a>
+      <span class="nav__text">stopwatch</span>
+    </router-link>
+    <router-link to="/timer" class="nav__link nav__link">
+      <font-awesome-icon icon="hourglass-clock" size="xl" />
+      <span class="nav__text">Timer</span>
+    </router-link>
+    <router-link to="/settings" class="nav__link nav__link">
+      <font-awesome-icon icon="sliders" size="xl" />
+      <span class="nav__text">settings</span>
+    </router-link>
   </nav>
   <!--  -->
   <router-view />
@@ -55,9 +57,9 @@ body {
 nav a {
   font-weight: bold;
   color: #2c3e50;
-}
+} */
 
-nav a.router-link-exact-active {
+/* nav a.router-link-exact-active {
   color: #42b983;
 } */
 
@@ -93,7 +95,7 @@ nav a.router-link-exact-active {
     background-color: #eeeeee;
 }
 
-.nav__link--active {
+.nav__link.router-link-exact-active{
     color: #009578;
 }
 

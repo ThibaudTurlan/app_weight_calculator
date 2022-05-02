@@ -13,7 +13,25 @@ const routes = [
     // route level code-splitting
     // this generates a separate chunk (about.[hash].js) for this route
     // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/AboutView.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/WeightCalculatorView.vue')
+  },
+  {
+    path: '/weight',
+    name: 'weight',
+    // route level code-spliked.
+    component: () => import(/* webpackChunkName: "weight" */ '../views/WeightCalculatorView.vue')
+  },
+  {
+    path: '/stopwatch',
+    name: 'stopwatch',
+    // route level code-spliked.
+    component: () => import(/* webpackChunkName: "stopwatch" */ '../views/StopwatchView.vue')
+  },
+  {
+    path: '/timer',
+    name: 'timer',
+    // route level code-spliked.
+    component: () => import(/* webpackChunkName: "timer" */ '../views/TimerIntervalView.vue')
   }
 ]
 

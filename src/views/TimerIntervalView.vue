@@ -1,16 +1,16 @@
 <template>
   <div class="about">
     <!-- <h1>This is an about page</h1> -->
-    <StopWatch></StopWatch>
+    <TimerInterval></TimerInterval>
   </div>
 </template>
 
 <script>
-import StopWatch from '@/components/StopWatch.vue'
+import TimerInterval from '@/components/TimerInterval.vue'
 export default {
-  name: 'HomeView',
+  name: 'TimerIntervalView',
   components: {
-    StopWatch
+    TimerInterval
   }
   
 }
