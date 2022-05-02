@@ -105,7 +105,6 @@ export default {
   height: 100vh;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #0f0f0f;
-  /* margin-bottom: 60px; */
   padding-top: 60px;
 }
 
@@ -183,7 +182,7 @@ export default {
 	
 	position: relative;
 	border-bottom: 1px solid #333;
-	padding-top: 1em;
+	padding: 1em 15px 0px 15px;
 	height: 3em;
 }
 </style>

@@ -4,7 +4,6 @@
     <router-link to="/about">StopWatch</router-link>
   </nav> -->
   <!--  -->
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
   <nav class="nav">
     <router-link to="/weight" class="nav__link nav__link">
       <font-awesome-icon icon="weight-hanging" size="xl" />
