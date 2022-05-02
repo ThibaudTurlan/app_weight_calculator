@@ -120,7 +120,7 @@ export default {
 }
 
 .time {
-	font-size: 68px;
+	font-size: 65px;
 	height: 1em;
 	line-height: 1em;
 	display: inline-block;
