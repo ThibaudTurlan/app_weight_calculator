@@ -14,7 +14,7 @@
       <span class="nav__text">stopwatch</span>
     </router-link>
     <router-link to="/timer" class="nav__link nav__link">
-      <font-awesome-icon icon="hourglass-clock" size="xl" />
+      <font-awesome-icon icon="stopwatch-20" size="xl" />
       <span class="nav__text">Timer</span>
     </router-link>
     <router-link to="/settings" class="nav__link nav__link">
