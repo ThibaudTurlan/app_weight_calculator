@@ -84,7 +84,7 @@ export default {
         this.zeroPrefix(hour, 2) + ":" + 
         this.zeroPrefix(min, 2) + ":" + 
         this.zeroPrefix(sec, 2) + "," + 
-        this.zeroPrefix(ms, 2);
+        this.zeroPrefix(ms, 3);
       
     },
     zeroPrefix(num, digit) {
