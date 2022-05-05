@@ -25,12 +25,17 @@
             <button type="button" class="btn-start" @click="startClock">start</button>
         </div>
         <main v-if="!isActive">
+            <div class="round-score">
+                {{ this.roundsLeft }} / {{ this.totalRounds }}
+            </div>
             <div class="work-time" v-if="!breakRunning">
                 {{ this.formatTime(this.workTime) }}
             </div>
             <div class="break-time" v-if="breakRunning">
                 {{ this.formatTime(this.breakTime) }}
             </div>
+            <button type="button" class="btn-start" @click="startClock">start</button>
+            <button @click="pauseClock">Pause</button>
         </main>
 
     </div>
@@ -136,16 +141,14 @@ export default {
                 clearInterval(this.workInterval);
             } else {
                 this.breakRunning = false;
-                clearInterval(this.breakInterval)
+                clearInterval(this.breakInterval);
             }
         },
-        countDownTimer(value) {
-            console.log(value);
-            if(value > 0) {
-                setTimeout(() => {
-                    value -= 1;
-                    this.countDownTimer()
-                }, 1000);
+        pauseClock(){
+            if(this.workRunning){
+                clearInterval(this.workInterval);
+            } else if (this.breakRunning){
+                clearInterval(this.breakInterval);
             }
         },
         formatTime: function(time) {
