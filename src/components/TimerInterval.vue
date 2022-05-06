@@ -35,7 +35,7 @@
                 {{ this.formatTime(this.breakTime) }}
             </div>
             <button type="button" class="btn-start" @click="startClock">start</button>
-            <button @click="stopCurrentInterval">Pause</button>
+            <button @click="pauseClock">Pause</button>
         </main>
 
     </div>
@@ -143,7 +143,11 @@ export default {
             }
         },
         pauseClock(){
-            this.isActive = true;
+            if(this.workRunning){
+                clearInterval(this.workInterval);
+            } else {
+                clearInterval(this.breakInterval);
+            }
         },
         clear(){
             this.workTime = this.timeOn;
@@ -151,7 +155,7 @@ export default {
             this.workRunning = true;
             this.breakRunning = false;
             this.roundsLeft = 1;
-            this.pauseClock();
+            this.isActive = true;
         },
         formatTime: function(time) {
             let seg = time % 60;
