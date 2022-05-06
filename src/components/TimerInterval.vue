@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container" v-bind:class="{bg_work : workRunning, bg_break : breakRunning}">
         <h1>Interval Time</h1>
         <div class="form-setting" v-if="isActive">
             <div class="work">
@@ -36,7 +36,7 @@
             </div>
             <button type="button" class="btn-start" @click="startClock">start</button>
             <button @click="pauseClock">Pause</button>
-            <button @click="clear   ">Reset</button>
+            <button @click="clear">Reset</button>
         </main>
 
     </div>
@@ -53,7 +53,7 @@ export default {
             isActive: true,
             roundsLeft: 1,
             totalRounds: 2,
-            workRunning: true,
+            workRunning: false,
             breakRunning: false,
             workInterval: null,
             breakInterval: null,
@@ -83,7 +83,11 @@ export default {
             this.totalRounds--;
         },
         startClock(){
-            this.isActive = false;
+
+            if(this.isActive){
+                this.isActive = false;
+                this.workRunning = true;
+            }
 
             if (this.roundsLeft <= this.totalRounds) {
                 if (this.breakRunning) {
@@ -153,10 +157,9 @@ export default {
         clear(){
             this.workTime = this.timeOn;
             this.breakTime = this.timeOff;
-            this.workRunning = true;
-            this.breakRunning = false;
             this.roundsLeft = 1;
             this.isActive = true;
+            this.stopCurrentInterval();
         },
         formatTime: function(time) {
             let seg = time % 60;
@@ -169,3 +172,12 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.bg_work {
+    background-color: tomato;
+}
+.bg_break {
+    background-color: aquamarine;
+}
+</style>
