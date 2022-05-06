@@ -36,6 +36,7 @@
             </div>
             <button type="button" class="btn-start" @click="startClock">start</button>
             <button @click="pauseClock">Pause</button>
+            <button @click="clear   ">Reset</button>
         </main>
 
     </div>
