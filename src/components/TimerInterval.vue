@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import sound from '@/assets/sounds/mixkit-clock-countdown-bleeps.ogg'
 export default {
     data() {
         return {
@@ -88,6 +89,8 @@ export default {
                 this.isActive = false;
                 this.workRunning = true;
             }
+            const audio = new Audio(sound);
+            audio.play();
 
             if (this.roundsLeft <= this.totalRounds) {
                 if (this.breakRunning) {
