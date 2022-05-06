@@ -35,7 +35,7 @@
                 {{ this.formatTime(this.breakTime) }}
             </div>
             <button type="button" class="btn-start" @click="startClock">start</button>
-            <button @click="pauseClock">Pause</button>
+            <button @click="stopCurrentInterval">Pause</button>
         </main>
 
     </div>
@@ -47,12 +47,11 @@ export default {
         return {
             workTime: 5,
             timeOn: 5,
-            breakTime: 15,
-            timeOff: 15,
+            breakTime: 10,
+            timeOff: 10,
             isActive: true,
-            countDown: 30,
             roundsLeft: 1,
-            totalRounds: 3,
+            totalRounds: 2,
             workRunning: true,
             breakRunning: false,
             workInterval: null,
@@ -119,11 +118,12 @@ export default {
                         }
                     }, 1000);
                 }
+            } else {
+                console.log("object");
+                this.clear()
             }
         },
         switchScreens(value){
-            console.log("workRunning ",this.workRunning);
-            console.log("breakRunning ",this.breakRunning);
             if (value === "toWork") {
                 console.log("toWork");
                 this.workRunning = true;
@@ -131,12 +131,10 @@ export default {
                 console.log("toBreak");
                 this.breakRunning = true;
             }
-            console.log("startClock");
             this.startClock();
         },
         stopCurrentInterval(){
             if(this.workRunning){
-                console.log("stop workTime");
                 this.workRunning = false;
                 clearInterval(this.workInterval);
             } else {
@@ -145,11 +143,15 @@ export default {
             }
         },
         pauseClock(){
-            if(this.workRunning){
-                clearInterval(this.workInterval);
-            } else if (this.breakRunning){
-                clearInterval(this.breakInterval);
-            }
+            this.isActive = true;
+        },
+        clear(){
+            this.workTime = this.timeOn;
+            this.breakTime = this.timeOff;
+            this.workRunning = true;
+            this.breakRunning = false;
+            this.roundsLeft = 1;
+            this.pauseClock();
         },
         formatTime: function(time) {
             let seg = time % 60;
