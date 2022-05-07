@@ -28,11 +28,14 @@
             <div class="round-score">
                 {{ this.roundsLeft }} / {{ this.totalRounds }}
             </div>
-            <div class="work-time" v-if="!breakRunning">
+            <div class="work-time" v-if="workRunning">
                 {{ this.formatTime(this.workTime) }}
             </div>
             <div class="break-time" v-if="breakRunning">
                 {{ this.formatTime(this.breakTime) }}
+            </div>
+            <div class="setup-time" v-if="setupRunning">
+                {{ this.formatTime(this.setupTime) }}
             </div>
             <button type="button" class="btn-start" @click="startClock">start</button>
             <button @click="pauseClock">Pause</button>
@@ -43,7 +46,7 @@
 </template>
 
 <script>
-import sound from '@/assets/sounds/mixkit-clock-countdown-bleeps.ogg'
+// import sound from '@/assets/sounds/mixkit-clock-countdown-bleeps.ogg'
 export default {
     data() {
         return {
@@ -58,6 +61,10 @@ export default {
             breakRunning: false,
             workInterval: null,
             breakInterval: null,
+            setupTime: 5,
+            setupOn: 5,
+            setupRunning: false,
+            setupInterval: null,
         }
     },
     methods: {
@@ -87,10 +94,12 @@ export default {
 
             if(this.isActive){
                 this.isActive = false;
-                this.workRunning = true;
+                // this.workRunning = true;
+                this.setupRunning = true;
+                // const audio = new Audio(sound);
+                // audio.play();
             }
-            const audio = new Audio(sound);
-            audio.play();
+            console.log("setupRunning :",this.setupRunning);    
 
             if (this.roundsLeft <= this.totalRounds) {
                 if (this.breakRunning) {
@@ -105,10 +114,11 @@ export default {
                             this.breakRunning = false;
                             let temp = this.timeOff;
                             this.breakTime = temp;
+                            this.roundsLeft++;
                             this.switchScreens("toWork");
                         }
                     }, 1000);
-                } else if (this.workTime) {
+                } else if (this.workRunning) {
                     console.log("work");
                     this.workInterval = setInterval(() => {
                         this.workRunning = true;
@@ -121,8 +131,23 @@ export default {
                             this.workRunning = false;
                             let temp = this.timeOn;
                             this.workTime = temp;
-                            this.roundsLeft++;
+                            // this.roundsLeft++;
                             this.switchScreens("toBreak");
+                        }
+                    }, 1000);
+                } else if (this.setupRunning) {
+                    console.log("setup");
+                    this.setupInterval = setInterval(() => {
+                        this.setupRunning = true;
+                        let newTime = this.setupTime - 1;
+                        this.setupTime = newTime;
+                        console.log(this.setupTime);
+                        if (newTime == 0) {
+                            this.stopCurrentInterval();
+                            this.setupRunning = false;
+                            let temp = this.setupOn;
+                            this.setupTime = temp;
+                            this.switchScreens("toWork");
                         }
                     }, 1000);
                 }
@@ -145,9 +170,12 @@ export default {
             if(this.workRunning){
                 this.workRunning = false;
                 clearInterval(this.workInterval);
-            } else {
+            } else if(this.breakRunning) {
                 this.breakRunning = false;
                 clearInterval(this.breakInterval);
+            } else if(this.setupRunning){
+                console.log("stop setupInterval");
+                clearInterval(this.setupInterval);
             }
         },
         pauseClock(){
