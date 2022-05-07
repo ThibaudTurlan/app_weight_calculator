@@ -46,7 +46,7 @@
 </template>
 
 <script>
-// import sound from '@/assets/sounds/mixkit-clock-countdown-bleeps.ogg'
+import sound from '@/assets/sounds/beep.ogg'
 export default {
     data() {
         return {
@@ -96,8 +96,7 @@ export default {
                 this.isActive = false;
                 // this.workRunning = true;
                 this.setupRunning = true;
-                // const audio = new Audio(sound);
-                // audio.play();
+
             }
             console.log("setupRunning :",this.setupRunning);    
 
@@ -110,6 +109,8 @@ export default {
                         this.breakTime = newTime;
                         console.log(this.breakTime);
                         if (newTime == 0) {
+                        const audio = new Audio(sound);
+                            audio.play();
                             this.stopCurrentInterval();
                             this.breakRunning = false;
                             let temp = this.timeOff;
@@ -127,6 +128,8 @@ export default {
                         console.log("newTime",this.workTime);
                         if (newTime == 0) {
                             console.log("stop");
+                            const audio = new Audio(sound);
+                            audio.play();
                             this.stopCurrentInterval();
                             this.workRunning = false;
                             let temp = this.timeOn;
@@ -142,7 +145,11 @@ export default {
                         let newTime = this.setupTime - 1;
                         this.setupTime = newTime;
                         console.log(this.setupTime);
+                        const audio = new Audio(sound);
+                            audio.play();
                         if (newTime == 0) {
+                            // const audio = new Audio(sound);
+                            // audio.play();
                             this.stopCurrentInterval();
                             this.setupRunning = false;
                             let temp = this.setupOn;
