@@ -91,14 +91,10 @@ export default {
             this.totalRounds--;
         },
         startClock(){
-
             if(this.isActive){
                 this.isActive = false;
-                // this.workRunning = true;
                 this.setupRunning = true;
-
             }
-            console.log("setupRunning :",this.setupRunning);    
 
             if (this.roundsLeft <= this.totalRounds) {
                 if (this.breakRunning) {
@@ -109,7 +105,7 @@ export default {
                         this.breakTime = newTime;
                         console.log(this.breakTime);
                         if (newTime == 0) {
-                        const audio = new Audio(sound);
+                            const audio = new Audio(sound);
                             audio.play();
                             this.stopCurrentInterval();
                             this.breakRunning = false;
@@ -134,7 +130,6 @@ export default {
                             this.workRunning = false;
                             let temp = this.timeOn;
                             this.workTime = temp;
-                            // this.roundsLeft++;
                             this.switchScreens("toBreak");
                         }
                     }, 1000);
@@ -146,10 +141,8 @@ export default {
                         this.setupTime = newTime;
                         console.log(this.setupTime);
                         const audio = new Audio(sound);
-                            audio.play();
+                        audio.play();
                         if (newTime == 0) {
-                            // const audio = new Audio(sound);
-                            // audio.play();
                             this.stopCurrentInterval();
                             this.setupRunning = false;
                             let temp = this.setupOn;
@@ -159,7 +152,6 @@ export default {
                     }, 1000);
                 }
             } else {
-                console.log("object");
                 this.clear()
             }
         },
@@ -181,7 +173,6 @@ export default {
                 this.breakRunning = false;
                 clearInterval(this.breakInterval);
             } else if(this.setupRunning){
-                console.log("stop setupInterval");
                 clearInterval(this.setupInterval);
             }
         },
