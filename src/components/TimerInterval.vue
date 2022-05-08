@@ -20,6 +20,7 @@
                 <span> x{{ this.totalRounds }}</span>
                 <button @click="addRounds">+</button>
             </div>
+            <p>Total Time</p>
             <div class="session-time">{{ this.formatTime((this.breakTime + this.workTime) * this.totalRounds) }}</div>
 
             <button type="button" class="btn-start" @click="startClock">start</button>
@@ -47,6 +48,7 @@
 
 <script>
 import sound from '@/assets/sounds/beep.ogg'
+import beep from '@/assets/sounds/154953__keykrusher__microwave-beep.ogg'
 export default {
     data() {
         return {
@@ -91,14 +93,10 @@ export default {
             this.totalRounds--;
         },
         startClock(){
-
             if(this.isActive){
                 this.isActive = false;
-                // this.workRunning = true;
                 this.setupRunning = true;
-
             }
-            console.log("setupRunning :",this.setupRunning);    
 
             if (this.roundsLeft <= this.totalRounds) {
                 if (this.breakRunning) {
@@ -108,9 +106,13 @@ export default {
                         let newTime = this.breakTime - 1;
                         this.breakTime = newTime;
                         console.log(this.breakTime);
-                        if (newTime == 0) {
-                        const audio = new Audio(sound);
+                        if(newTime <= 3 && newTime >= 1) {
+                            const audio = new Audio(sound);
                             audio.play();
+                        }
+                        if (newTime == 0) {
+                            const beep2 = new Audio(beep);
+                            beep2.play();
                             this.stopCurrentInterval();
                             this.breakRunning = false;
                             let temp = this.timeOff;
@@ -126,15 +128,18 @@ export default {
                         let newTime = this.workTime - 1;
                         this.workTime = newTime;
                         console.log("newTime",this.workTime);
-                        if (newTime == 0) {
-                            console.log("stop");
+                        if(newTime <= 3 && newTime >= 1) {
                             const audio = new Audio(sound);
                             audio.play();
+                        }
+                        if (newTime == 0) {
+                            console.log("stop");
+                            const beep2 = new Audio(beep);
+                            beep2.play();
                             this.stopCurrentInterval();
                             this.workRunning = false;
                             let temp = this.timeOn;
                             this.workTime = temp;
-                            // this.roundsLeft++;
                             this.switchScreens("toBreak");
                         }
                     }, 1000);
@@ -145,11 +150,13 @@ export default {
                         let newTime = this.setupTime - 1;
                         this.setupTime = newTime;
                         console.log(this.setupTime);
-                        const audio = new Audio(sound);
+                        if(newTime <= 5 && newTime >= 1) {
+                            const audio = new Audio(sound);
                             audio.play();
+                        }
                         if (newTime == 0) {
-                            // const audio = new Audio(sound);
-                            // audio.play();
+                            const beep2 = new Audio(beep);
+                            beep2.play();
                             this.stopCurrentInterval();
                             this.setupRunning = false;
                             let temp = this.setupOn;
@@ -159,7 +166,6 @@ export default {
                     }, 1000);
                 }
             } else {
-                console.log("object");
                 this.clear()
             }
         },
@@ -181,7 +187,6 @@ export default {
                 this.breakRunning = false;
                 clearInterval(this.breakInterval);
             } else if(this.setupRunning){
-                console.log("stop setupInterval");
                 clearInterval(this.setupInterval);
             }
         },
