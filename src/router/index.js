@@ -32,6 +32,12 @@ const routes = [
     name: 'timer',
     // route level code-spliked.
     component: () => import(/* webpackChunkName: "timer" */ '../views/TimerIntervalView.vue')
+  },
+  {
+    path: '/settings',
+    name: 'settings',
+    // route level code-spliked.
+    component: () => import(/* webpackChunkName: "setting" */ '../views/SettingView.vue')
   }
 ]
 

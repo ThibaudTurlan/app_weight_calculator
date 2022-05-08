@@ -6,19 +6,19 @@
   <!--  -->
   <nav class="nav">
     <router-link to="/weight" class="nav__link nav__link">
-      <font-awesome-icon icon="weight-hanging" size="xl" />
+      <font-awesome-icon icon="weight-hanging" size="lg" />
       <span class="nav__text">Weight</span>
     </router-link>
     <router-link to="/stopwatch" class="nav__link nav__link">
-      <font-awesome-icon icon="stopwatch" size="xl" />
+      <font-awesome-icon icon="stopwatch" size="lg" />
       <span class="nav__text">stopwatch</span>
     </router-link>
     <router-link to="/timer" class="nav__link nav__link">
-      <font-awesome-icon icon="stopwatch-20" size="xl" />
+      <font-awesome-icon icon="stopwatch-20" size="lg" />
       <span class="nav__text">Timer</span>
     </router-link>
     <router-link to="/settings" class="nav__link nav__link">
-      <font-awesome-icon icon="sliders" size="xl" />
+      <font-awesome-icon icon="sliders" size="lg" />
       <span class="nav__text">settings</span>
     </router-link>
   </nav>
