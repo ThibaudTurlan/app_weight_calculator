@@ -1,26 +1,31 @@
 <template>
     <div class="container" v-bind:class="{bg_work : workRunning, bg_break : breakRunning}">
-        <h1>Interval Time</h1>
+        <h1 class="container__title">Interval Time</h1>
         <div class="form-setting" v-if="isActive">
-            <div class="work">
-                <p>work</p>
-                <button @click="lessWorkTime">-</button>
-                <span>{{ formatTime(this.workTime) }}</span>
-                <button @click="addWorkTime">+</button>
+            <div class="form__input work">
+                <span class="form__input--label">work</span>
+                <div class="form__input--btn-action">
+                    <button class="btn-action" @click="lessWorkTime">-</button>
+                    <span class="form__input--value">{{ formatTime(this.workTime) }}</span>
+                    <button class="btn-action" @click="addWorkTime">+</button>
+                </div>
             </div>
-            <div class="breakTime">
-                <p>breakTime</p>
-                <button @click="lessBreakTime">-</button>
-                <span>{{ formatTime(this.breakTime) }}</span>
-                <button @click="addBreakTime">+</button>
+            <div class="form__input breakTime">
+                <span class="form__input--label">breakTime</span>
+                <div class="form__input--btn-action">
+                    <button class="btn-action" @click="lessBreakTime">-</button>
+                    <span class="form__input--value">{{ formatTime(this.breakTime) }}</span>
+                    <button class="btn-action" @click="addBreakTime">+</button>
+                </div>
             </div>
-            <div class="round">
-                <p>round</p>
-                <button @click="lessRounds">-</button>
-                <span> x{{ this.totalRounds }}</span>
-                <button @click="addRounds">+</button>
+            <div class="form__input round">
+                <span class="form__input--label">round</span>
+                <div class="form__input--btn-action">
+                    <button  class="btn-action" @click="lessRounds">-</button>
+                    <span class="form__input--value"> x{{ this.totalRounds }}</span>
+                    <button class="btn-action" @click="addRounds">+</button>
+                </div>
             </div>
-            <p>Total Time</p>
             <div class="session-time">{{ this.formatTime((this.breakTime + this.workTime) * this.totalRounds) }}</div>
 
             <button type="button" class="btn-start" @click="startClock">start</button>
@@ -38,9 +43,9 @@
             <div class="setup-time" v-if="setupRunning">
                 {{ this.formatTime(this.setupTime) }}
             </div>
-            <button type="button" class="btn-start" @click="startClock">start</button>
-            <button @click="pauseClock">Pause</button>
-            <button @click="clear">Reset</button>
+            <button type="button" class="btn-start-work" @click="startClock">start</button>
+            <button type="button" @click="pauseClock">Pause</button>
+            <button type="button" @click="clear">Reset</button>
         </main>
 
     </div>
@@ -217,10 +222,100 @@ export default {
 </script>
 
 <style scoped>
+h1, p {
+    margin: 0;
+}
+.container {
+    background-color: #002233;
+    height: 100vh;
+    width: 100vw;
+    padding: 10px;
+}
 .bg_work {
     background-color: tomato;
 }
 .bg_break {
     background-color: aquamarine;
 }
+
+.container__title {
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 10px 0 40px 0;
+}
+
+.form-setting {
+    /* padding: 10px; */
+}
+.form__input {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 0 20px;
+    margin: 10px 0 5px 0;
+    background-color: #00334D;
+    
+    border-radius: 7px;
+    color: #fff;
+
+}
+
+.form__input--btn-action {
+    width: 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.form__input--label {
+    font-size: 20px;
+    color: #ffff;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.form__input--value {
+    width: 50px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.btn-action {
+    height: 35px;
+    width: 35px;
+    font-size: 25px;
+    /*  */
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-start {
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+
+    background-color: tomato;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.session-time {
+    color: #fff;
+    font-size: 50px;
+    font-weight: 700;
+
+    margin: 30px 0 40px 0;
+}
+
 </style>
