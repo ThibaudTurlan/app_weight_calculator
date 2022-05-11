@@ -11,7 +11,7 @@
                 </div>
             </div>
             <div class="form__input breakTime">
-                <span class="form__input--label">breakTime</span>
+                <span class="form__input--label">break</span>
                 <div class="form__input--btn-action">
                     <button class="btn-action" @click="lessBreakTime">-</button>
                     <span class="form__input--value">{{ formatTime(this.breakTime) }}</span>
@@ -30,23 +30,25 @@
 
             <button type="button" class="btn-start" @click="startClock">start</button>
         </div>
-        <main v-if="!isActive">
-            <div class="round-score">
+        <div class="timer-wrapper" v-if="!isActive">
+            <div class="round-left">
                 {{ this.roundsLeft }} / {{ this.totalRounds }}
             </div>
-            <div class="work-time" v-if="workRunning">
+            <div class="time-left work-time" v-if="workRunning">
                 {{ this.formatTime(this.workTime) }}
             </div>
-            <div class="break-time" v-if="breakRunning">
+            <div class="time-left break-time" v-if="breakRunning">
                 {{ this.formatTime(this.breakTime) }}
             </div>
-            <div class="setup-time" v-if="setupRunning">
+            <div class="time-left setup-time" v-if="setupRunning">
                 {{ this.formatTime(this.setupTime) }}
             </div>
-            <button type="button" class="btn-start-work" @click="startClock">start</button>
-            <button type="button" @click="pauseClock">Pause</button>
-            <button type="button" @click="clear">Reset</button>
-        </main>
+            <div class="block-btn">
+                <button type="button" class="btn-clock" v-if="breakRunning" @click="startClock" ><font-awesome-icon icon="play"/></button>
+                <button type="button" class="btn-clock" v-if="workRunning" @click="pauseClock"><font-awesome-icon icon="pause"/></button>
+                <button type="button" class="btn-clock" @click="clear"><font-awesome-icon icon="rotate"/></button>
+            </div>
+        </div>
 
     </div>
 </template>
@@ -98,6 +100,8 @@ export default {
             this.totalRounds--;
         },
         startClock(){
+            console.log("workRunning",this.workRunning);
+            console.log("breakRunning",this.breakRunning);
             if(this.isActive){
                 this.isActive = false;
                 this.setupRunning = true;
@@ -318,4 +322,39 @@ h1, p {
     margin: 30px 0 40px 0;
 }
 
+/*  */
+.timer-wrapper {
+    border: 6px solid rgb(24, 117, 204);
+    margin: 30px auto 30px;
+    text-transform: capitalize;
+    border-radius: 50%;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.time-left {
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    width: 70%;
+    margin: 0 auto;
+    font-size: 70px;
+    color: #ffff;
+}
+.round-left {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.btn-clock {
+    border: none;
+    color: white;
+    font-size: 24px;
+    background-color: transparent;
+    cursor: pointer;
+}
 </style>
