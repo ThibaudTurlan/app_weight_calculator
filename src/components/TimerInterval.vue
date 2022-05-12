@@ -44,8 +44,10 @@
                 {{ this.formatTime(this.setupTime) }}
             </div>
             <div class="block-btn">
-                <button type="button" class="btn-clock" v-if="breakRunning" @click="startClock" ><font-awesome-icon icon="play"/></button>
-                <button type="button" class="btn-clock" v-if="workRunning" @click="pauseClock"><font-awesome-icon icon="pause"/></button>
+                <button class="btn-clock" @click="startPause"> 
+                    <font-awesome-icon v-if="isPause" icon='play'/>
+                    <font-awesome-icon  v-else icon='pause'/>
+                </button>
                 <button type="button" class="btn-clock" @click="clear"><font-awesome-icon icon="rotate"/></button>
             </div>
         </div>
@@ -74,6 +76,7 @@ export default {
             setupOn: 5,
             setupRunning: false,
             setupInterval: null,
+            isPause: false,
         }
     },
     methods: {
@@ -100,8 +103,6 @@ export default {
             this.totalRounds--;
         },
         startClock(){
-            console.log("workRunning",this.workRunning);
-            console.log("breakRunning",this.breakRunning);
             if(this.isActive){
                 this.isActive = false;
                 this.setupRunning = true;
@@ -204,6 +205,18 @@ export default {
                 clearInterval(this.workInterval);
             } else {
                 clearInterval(this.breakInterval);
+            }
+        },
+        startPause(){
+            this.isPause = !this.isPause;
+            if(this.isPause){
+                console.log("break", this.isPause);
+                clearInterval(this.workInterval);
+                clearInterval(this.breakInterval);
+                clearInterval(this.setupInterval);
+            } else {
+                console.log("work", this.isPause);
+                this.startClock();
             }
         },
         clear(){
