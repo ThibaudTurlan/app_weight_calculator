@@ -43,7 +43,7 @@
             <div class="time-left setup-time" v-if="setupRunning">
                 {{ this.formatTime(this.setupTime) }}
             </div>
-            <div class="block-btn">
+            <div class="timer-btn">
                 <button class="btn-clock" @click="startPause"> 
                     <font-awesome-icon v-if="isPause" icon='play'/>
                     <font-awesome-icon  v-else icon='pause'/>
@@ -363,6 +363,11 @@ h1, p {
     color: #fff;
 }
 
+.timer-btn {
+    display: flex;
+    justify-content: space-evenly;
+
+}
 .btn-clock {
     border: none;
     color: white;
