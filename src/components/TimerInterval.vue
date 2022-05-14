@@ -30,29 +30,35 @@
 
             <button type="button" class="btn-start" @click="startClock">start</button>
         </div>
+        
         <div class="timer-wrapper" v-if="!isActive">
-            <div class="round-left">
-                {{ this.roundsLeft }} / {{ this.totalRounds }}
-            </div>
-            <div class="time-left work-time" v-if="workRunning">
-                {{ this.formatTime(this.workTime) }}
-            </div>
-            <div class="time-left break-time" v-if="breakRunning">
-                {{ this.formatTime(this.breakTime) }}
-            </div>
-            <div class="time-left setup-time" v-if="setupRunning">
-                {{ this.formatTime(this.setupTime) }}
-            </div>
-            <div class="timer-btn">
-                <button class="btn-clock" @click="startPause"> 
-                    <font-awesome-icon v-if="isPause" icon='play'/>
-                    <font-awesome-icon  v-else icon='pause'/>
-                </button>
-                <button type="button" class="btn-clock" @click="clear"><font-awesome-icon icon="rotate"/></button>
-            </div>
+            <div class="circle-clock">
+                <div class="round-left">
+                    {{ this.roundsLeft }} / {{ this.totalRounds }}
+                </div>
+                <div class="time-left work-time" v-if="workRunning">
+                    {{ this.formatTime(this.workTime) }}
+                </div>
+                <div class="time-left break-time" v-if="breakRunning">
+                    {{ this.formatTime(this.breakTime) }}
+                </div>
+                <div class="time-left setup-time" v-if="setupRunning">
+                    {{ this.formatTime(this.setupTime) }}
+                </div>
+                <div class="timer-btn">
+                    <button class="btn-clock" @click="startPause"> 
+                        <font-awesome-icon v-if="isPause" icon='play'/>
+                        <font-awesome-icon  v-else icon='pause'/>
+                    </button>
+                    <button type="button" class="btn-clock" @click="clear"><font-awesome-icon icon="rotate"/></button>
+                </div>
+            </div>  
+                <svg class="progress-ring" height="320" width="320">
+                    <circle class="progress-ring__circle" stroke-width="4" fill="transparent" r="150" cx="160" cy="160" />
+                </svg>
         </div>
-
     </div>
+    
 </template>
 
 <script>
@@ -261,9 +267,11 @@ h1, p {
     margin: 10px 0 40px 0;
 }
 
-.form-setting {
-    /* padding: 10px; */
-}
+/* .form-setting {
+    padding: 10px;
+    position: relative;
+    z-index: 2;
+} */
 .form__input {
     width: 100%;
     height: 65px;
@@ -335,7 +343,7 @@ h1, p {
     margin: 30px 0 40px 0;
 }
 
-/*  */
+/* CLOCK */
 .timer-wrapper {
     border: 6px solid rgb(24, 117, 204);
     margin: 30px auto 30px;
@@ -347,7 +355,16 @@ h1, p {
     flex-direction: column;
     justify-content: space-around;
 }
+.circle-clock {
+    width: 320px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 
+    position: relative;
+    z-index: 2;
+}
 .time-left {
     font-family: "Poppins", sans-serif;
     font-weight: bold;
@@ -357,6 +374,7 @@ h1, p {
     font-size: 70px;
     color: #ffff;
 }
+
 .round-left {
     font-size: 20px;
     font-weight: 700;
@@ -374,5 +392,20 @@ h1, p {
     font-size: 24px;
     background-color: transparent;
     cursor: pointer;
+}
+
+.progress-ring {
+	position: absolute;
+	top: 38%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/* z-index: -1; */
+}
+
+.progress-ring__circle {
+	transition: 0.5s;
+	transform: rotate(-90deg);
+	transform-origin: 50% 50%;
+	stroke: rgb(51, 65, 255);
 }
 </style>
