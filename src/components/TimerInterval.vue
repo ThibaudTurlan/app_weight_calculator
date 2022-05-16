@@ -32,30 +32,25 @@
         </div>
         
         <div class="timer-wrapper" v-show="!isActive">
-            <div class="circle-clock">
-                <div class="round-left">
-                    {{ this.roundsLeft }} / {{ this.totalRounds }}
-                </div>
-                <div class="time-left work-time" v-if="workRunning">
-                    {{ this.formatTime(this.workTime) }}
-                </div>
-                <div class="time-left break-time" v-if="breakRunning">
-                    {{ this.formatTime(this.breakTime) }}
-                </div>
-                <div class="time-left setup-time" v-if="setupRunning">
-                    {{ this.formatTime(this.setupTime) }}
-                </div>
-                <div class="timer-btn">
-                    <button class="btn-clock" @click="startPause"> 
-                        <font-awesome-icon v-if="isPause" icon='play'/>
-                        <font-awesome-icon  v-else icon='pause'/>
-                    </button>
-                    <button type="button" class="btn-clock" @click="clear"><font-awesome-icon icon="rotate"/></button>
-                </div>
-            </div>  
-            <!-- <svg class="progress-ring" height="325" width="325">
-                <circle class="progress-ring__circle" ref="circle" stroke-width="7" fill="transparent" r="156" cx="160" cy="163"/>
-            </svg> -->
+            <div class="round-left">
+                {{ this.roundsLeft }} / {{ this.totalRounds }}
+            </div>
+            <div class="time-left work-time" v-if="workRunning">
+                {{ this.formatTime(this.workTime) }}
+            </div>
+            <div class="time-left break-time" v-if="breakRunning">
+                {{ this.formatTime(this.breakTime) }}
+            </div>
+            <div class="time-left setup-time" v-if="setupRunning">
+                {{ this.formatTime(this.setupTime) }}
+            </div>
+            <div class="timer-btn">
+                <button class="btn-clock" @click="startPause"> 
+                    <font-awesome-icon v-if="isPause" icon='play'/>
+                    <font-awesome-icon  v-else icon='pause'/>
+                </button>
+                <button type="button" class="btn-clock" @click="clear"><font-awesome-icon icon="rotate"/></button>
+            </div>
         </div>
     </div>
     
@@ -114,15 +109,6 @@ export default {
                 this.isActive = false;
                 this.setupRunning = true;
             }
-            // const circle = this.$refs.circle;
-            // const radius = circle.r.baseVal.value;
-            // const circumference = radius * 2 * Math.PI;
-
-            // circle.style.strokeDasharray = circumference;
-            // circle.style.strokeDashoffset = circumference;
-            // console.log(radius);
-            // let seconds = 1 * 60
-            // let totalsecs = 1 * 60
             if (this.roundsLeft <= this.totalRounds) {
                 if (this.breakRunning) {
                     console.log("break");
@@ -130,11 +116,6 @@ export default {
                         this.breakRunning = true;
                         let newTime = this.breakTime - 1;
                         this.breakTime = newTime;
-                        // let perc = Math.ceil(((this.timeOff - newTime) / this.timeOff) * 100);
-                        // console.log("perc", perc);
-                        // console.log("breakTime", newTime);
-                        // this.setProgress(perc, circle, circumference);
-                        console.log(this.breakTime);
                         if(newTime <= 3 && newTime >= 1) {
                             const audio = new Audio(sound);
                             audio.play();
@@ -245,10 +226,6 @@ export default {
             this.isActive = true;
             this.stopCurrentInterval();
         },
-        // setProgress(percent, circle,circumference) {
-        //     const offset = circumference - (percent / 100) * circumference;
-        //     circle.style.strokeDashoffset = offset;
-        // },
         formatTime: function(time) {
             let seg = time % 60;
             if (seg < 10) {
