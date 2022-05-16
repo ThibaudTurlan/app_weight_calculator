@@ -31,7 +31,7 @@
             <button type="button" class="btn-start" @click="startClock">start</button>
         </div>
         
-        <div class="timer-wrapper" v-if="!isActive">
+        <div class="timer-wrapper" v-show="!isActive">
             <div class="circle-clock">
                 <div class="round-left">
                     {{ this.roundsLeft }} / {{ this.totalRounds }}
@@ -53,9 +53,10 @@
                     <button type="button" class="btn-clock" @click="clear"><font-awesome-icon icon="rotate"/></button>
                 </div>
             </div>  
-                <svg class="progress-ring" height="320" width="320">
-                    <circle class="progress-ring__circle" stroke-width="4" fill="transparent" r="150" cx="160" cy="160" />
-                </svg>
+            <svg class="progress-ring" height="325" width="325">
+                <!-- <circle class="progress-ring__circle" ref="circle" stroke-width="4" fill="transparent" r="150" cx="160" cy="160" /> -->
+                <circle class="progress-ring__circle" ref="circle" stroke-width="7" fill="transparent" r="156" cx="160" cy="163"/>
+            </svg>
         </div>
     </div>
     
@@ -74,6 +75,7 @@ export default {
             isActive: true,
             roundsLeft: 1,
             totalRounds: 2,
+            totalTime: 0,
             workRunning: false,
             breakRunning: false,
             workInterval: null,
@@ -113,7 +115,15 @@ export default {
                 this.isActive = false;
                 this.setupRunning = true;
             }
+            const circle = this.$refs.circle;
+            const radius = circle.r.baseVal.value;
+            const circumference = radius * 2 * Math.PI;
 
+            circle.style.strokeDasharray = circumference;
+            circle.style.strokeDashoffset = circumference;
+            console.log(radius);
+            // let seconds = 1 * 60
+            // let totalsecs = 1 * 60
             if (this.roundsLeft <= this.totalRounds) {
                 if (this.breakRunning) {
                     console.log("break");
@@ -121,6 +131,10 @@ export default {
                         this.breakRunning = true;
                         let newTime = this.breakTime - 1;
                         this.breakTime = newTime;
+                        let perc = Math.ceil(((this.timeOff - newTime) / this.timeOff) * 100);
+                        console.log("perc", perc);
+                        console.log("breakTime", newTime);
+                        this.setProgress(perc, circle, circumference);
                         console.log(this.breakTime);
                         if(newTime <= 3 && newTime >= 1) {
                             const audio = new Audio(sound);
@@ -232,6 +246,10 @@ export default {
             this.isActive = true;
             this.stopCurrentInterval();
         },
+        setProgress(percent, circle,circumference) {
+            const offset = circumference - (percent / 100) * circumference;
+            circle.style.strokeDashoffset = offset;
+        },
         formatTime: function(time) {
             let seg = time % 60;
             if (seg < 10) {
@@ -239,7 +257,7 @@ export default {
             }
             let min = parseInt(time / 60);
             return min + ":" + seg;
-        }
+        },
     },
 }
 </script>
@@ -345,7 +363,7 @@ h1, p {
 
 /* CLOCK */
 .timer-wrapper {
-    border: 6px solid rgb(24, 117, 204);
+    border: 6px solid #1875cc;
     margin: 30px auto 30px;
     text-transform: capitalize;
     border-radius: 50%;
