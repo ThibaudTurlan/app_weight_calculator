@@ -1,49 +1,64 @@
 <template>
     <div class="container" v-bind:class="{bg_work : workRunning, bg_break : breakRunning}">
-        <h1>Interval Time</h1>
+        <h1 class="container__title">Interval Time</h1>
         <div class="form-setting" v-if="isActive">
-            <div class="work">
-                <p>work</p>
-                <button @click="lessWorkTime">-</button>
-                <span>{{ formatTime(this.workTime) }}</span>
-                <button @click="addWorkTime">+</button>
+            <div class="form__input work">
+                <span class="form__input--label">work</span>
+                <div class="form__input--btn-action">
+                    <button class="btn-action" @click="lessWorkTime">-</button>
+                    <span class="form__input--value">{{ formatTime(this.workTime) }}</span>
+                    <button class="btn-action" @click="addWorkTime">+</button>
+                </div>
             </div>
-            <div class="breakTime">
-                <p>breakTime</p>
-                <button @click="lessBreakTime">-</button>
-                <span>{{ formatTime(this.breakTime) }}</span>
-                <button @click="addBreakTime">+</button>
+            <div class="form__input breakTime">
+                <span class="form__input--label">break</span>
+                <div class="form__input--btn-action">
+                    <button class="btn-action" @click="lessBreakTime">-</button>
+                    <span class="form__input--value">{{ formatTime(this.breakTime) }}</span>
+                    <button class="btn-action" @click="addBreakTime">+</button>
+                </div>
             </div>
-            <div class="round">
-                <p>round</p>
-                <button @click="lessRounds">-</button>
-                <span> x{{ this.totalRounds }}</span>
-                <button @click="addRounds">+</button>
+            <div class="form__input round">
+                <span class="form__input--label">round</span>
+                <div class="form__input--btn-action">
+                    <button  class="btn-action" @click="lessRounds">-</button>
+                    <span class="form__input--value"> x{{ this.totalRounds }}</span>
+                    <button class="btn-action" @click="addRounds">+</button>
+                </div>
             </div>
-            <p>Total Time</p>
             <div class="session-time">{{ this.formatTime((this.breakTime + this.workTime) * this.totalRounds) }}</div>
 
             <button type="button" class="btn-start" @click="startClock">start</button>
         </div>
-        <main v-if="!isActive">
-            <div class="round-score">
-                {{ this.roundsLeft }} / {{ this.totalRounds }}
-            </div>
-            <div class="work-time" v-if="workRunning">
-                {{ this.formatTime(this.workTime) }}
-            </div>
-            <div class="break-time" v-if="breakRunning">
-                {{ this.formatTime(this.breakTime) }}
-            </div>
-            <div class="setup-time" v-if="setupRunning">
-                {{ this.formatTime(this.setupTime) }}
-            </div>
-            <button type="button" class="btn-start" @click="startClock">start</button>
-            <button @click="pauseClock">Pause</button>
-            <button @click="clear">Reset</button>
-        </main>
-
+        
+        <div class="timer-wrapper" v-show="!isActive">
+            <div class="circle-clock">
+                <div class="round-left">
+                    {{ this.roundsLeft }} / {{ this.totalRounds }}
+                </div>
+                <div class="time-left work-time" v-if="workRunning">
+                    {{ this.formatTime(this.workTime) }}
+                </div>
+                <div class="time-left break-time" v-if="breakRunning">
+                    {{ this.formatTime(this.breakTime) }}
+                </div>
+                <div class="time-left setup-time" v-if="setupRunning">
+                    {{ this.formatTime(this.setupTime) }}
+                </div>
+                <div class="timer-btn">
+                    <button class="btn-clock" @click="startPause"> 
+                        <font-awesome-icon v-if="isPause" icon='play'/>
+                        <font-awesome-icon  v-else icon='pause'/>
+                    </button>
+                    <button type="button" class="btn-clock" @click="clear"><font-awesome-icon icon="rotate"/></button>
+                </div>
+            </div>  
+            <!-- <svg class="progress-ring" height="325" width="325">
+                <circle class="progress-ring__circle" ref="circle" stroke-width="7" fill="transparent" r="156" cx="160" cy="163"/>
+            </svg> -->
+        </div>
     </div>
+    
 </template>
 
 <script>
@@ -59,6 +74,7 @@ export default {
             isActive: true,
             roundsLeft: 1,
             totalRounds: 2,
+            totalTime: 0,
             workRunning: false,
             breakRunning: false,
             workInterval: null,
@@ -67,6 +83,7 @@ export default {
             setupOn: 5,
             setupRunning: false,
             setupInterval: null,
+            isPause: false,
         }
     },
     methods: {
@@ -97,7 +114,15 @@ export default {
                 this.isActive = false;
                 this.setupRunning = true;
             }
+            // const circle = this.$refs.circle;
+            // const radius = circle.r.baseVal.value;
+            // const circumference = radius * 2 * Math.PI;
 
+            // circle.style.strokeDasharray = circumference;
+            // circle.style.strokeDashoffset = circumference;
+            // console.log(radius);
+            // let seconds = 1 * 60
+            // let totalsecs = 1 * 60
             if (this.roundsLeft <= this.totalRounds) {
                 if (this.breakRunning) {
                     console.log("break");
@@ -105,6 +130,10 @@ export default {
                         this.breakRunning = true;
                         let newTime = this.breakTime - 1;
                         this.breakTime = newTime;
+                        // let perc = Math.ceil(((this.timeOff - newTime) / this.timeOff) * 100);
+                        // console.log("perc", perc);
+                        // console.log("breakTime", newTime);
+                        // this.setProgress(perc, circle, circumference);
                         console.log(this.breakTime);
                         if(newTime <= 3 && newTime >= 1) {
                             const audio = new Audio(sound);
@@ -197,6 +226,18 @@ export default {
                 clearInterval(this.breakInterval);
             }
         },
+        startPause(){
+            this.isPause = !this.isPause;
+            if(this.isPause){
+                console.log("break", this.isPause);
+                clearInterval(this.workInterval);
+                clearInterval(this.breakInterval);
+                clearInterval(this.setupInterval);
+            } else {
+                console.log("work", this.isPause);
+                this.startClock();
+            }
+        },
         clear(){
             this.workTime = this.timeOn;
             this.breakTime = this.timeOff;
@@ -204,6 +245,10 @@ export default {
             this.isActive = true;
             this.stopCurrentInterval();
         },
+        // setProgress(percent, circle,circumference) {
+        //     const offset = circumference - (percent / 100) * circumference;
+        //     circle.style.strokeDashoffset = offset;
+        // },
         formatTime: function(time) {
             let seg = time % 60;
             if (seg < 10) {
@@ -211,16 +256,173 @@ export default {
             }
             let min = parseInt(time / 60);
             return min + ":" + seg;
-        }
+        },
     },
 }
 </script>
 
 <style scoped>
+h1, p {
+    margin: 0;
+}
+.container {
+    background-color: #002233;
+    height: 100vh;
+    width: 100vw;
+    padding: 10px;
+}
 .bg_work {
     background-color: tomato;
 }
 .bg_break {
     background-color: aquamarine;
+}
+
+.container__title {
+    text-transform: uppercase;
+    font-weight: 700;
+    margin: 10px 0 40px 0;
+}
+
+/* .form-setting {
+    padding: 10px;
+    position: relative;
+    z-index: 2;
+} */
+.form__input {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px 0 20px;
+    margin: 10px 0 5px 0;
+    background-color: #00334D;
+    
+    border-radius: 7px;
+    color: #fff;
+
+}
+
+.form__input--btn-action {
+    width: 140px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+.form__input--label {
+    font-size: 20px;
+    color: #ffff;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+.form__input--value {
+    width: 50px;
+    font-size: 20px;
+    font-weight: 700;
+}
+.btn-action {
+    height: 35px;
+    width: 35px;
+    font-size: 25px;
+    /*  */
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-start {
+    width: 120px;
+    height: 120px;
+    text-align: center;
+    text-decoration: none;
+    border: none;
+    border-radius: 100%;
+    cursor: pointer;
+
+    background-color: tomato;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.session-time {
+    color: #fff;
+    font-size: 50px;
+    font-weight: 700;
+
+    margin: 30px 0 40px 0;
+}
+
+/* CLOCK */
+.timer-wrapper {
+    border: 6px solid #1875cc;
+    margin: 30px auto 30px;
+    text-transform: capitalize;
+    border-radius: 50%;
+    width: 320px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+.circle-clock {
+    width: 320px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+
+    position: relative;
+    z-index: 2;
+}
+.time-left {
+    font-family: "Poppins", sans-serif;
+    font-weight: bold;
+    letter-spacing: 2px;
+    width: 70%;
+    margin: 0 auto;
+    font-size: 70px;
+    color: #ffff;
+}
+
+.round-left {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+}
+
+.timer-btn {
+    display: flex;
+    justify-content: space-evenly;
+
+}
+.btn-clock {
+    border: none;
+    color: white;
+    font-size: 24px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.progress-ring {
+	position: absolute;
+	top: 38%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/* z-index: -1; */
+}
+
+.progress-ring__circle {
+	transition: 0.5s;
+	transform: rotate(-90deg);
+	transform-origin: 50% 50%;
+	stroke: rgb(51, 65, 255);
 }
 </style>
