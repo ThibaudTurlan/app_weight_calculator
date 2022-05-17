@@ -2,11 +2,11 @@
   <div class="container">
     <main>
       <h1>calculate items</h1>
-      <form action="" method="POST">
-        <input type="text" name="charge" v-model="charge" id="charge" placeholder="value" />
+      <div>
+        <input type="text" name="charge" v-model="prefixKG" id="charge" />
         <select name="pets" v-model="selected" id="select-items" > 
           <option value="Choose" selected disabled hidden>Choose</option>
-          <option value="0.70" >70%</option>
+          <option value="0.70">70%</option>
           <option value="0.75">75%</option>
           <option value="0.80">80%</option>
           <option value="0.85">85%</option>
@@ -14,10 +14,8 @@
           <option value="0.95">95%</option>
           <option value="1">100%</option>
         </select>
-        <button type="button" id="btn-calc" @click="weightCalc()">
-          calculate
-        </button>
-      </form>
+        <button type="button" id="btn-calc" @click="weightCalc()">calculate</button>
+      </div>
       <hr />
       <div id="block-result">
           <ul>
@@ -56,6 +54,11 @@ export default {
       }
     },
   },
+  computed: {
+    prefixKG() {
+      return this.charge + ' kg';
+    }
+  }
 };
 </script>
 
