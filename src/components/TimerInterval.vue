@@ -5,25 +5,25 @@
             <div class="form__input work">
                 <span class="form__input--label">work</span>
                 <div class="form__input--btn-action">
-                    <button class="btn-action" @click="lessWorkTime">-</button>
+                    <button class="btn-action" @click="workTime -= 5">-</button>
                     <span class="form__input--value">{{ formatTime(this.workTime) }}</span>
-                    <button class="btn-action" @click="addWorkTime">+</button>
+                    <button class="btn-action" @click="workTime += 5">+</button>
                 </div>
             </div>
             <div class="form__input breakTime">
                 <span class="form__input--label">break</span>
                 <div class="form__input--btn-action">
-                    <button class="btn-action" @click="lessBreakTime">-</button>
+                    <button class="btn-action" @click="breakTime -= 5">-</button>
                     <span class="form__input--value">{{ formatTime(this.breakTime) }}</span>
-                    <button class="btn-action" @click="addBreakTime">+</button>
+                    <button class="btn-action" @click="breakTime += 5">+</button>
                 </div>
             </div>
             <div class="form__input round">
                 <span class="form__input--label">round</span>
                 <div class="form__input--btn-action">
-                    <button  class="btn-action" @click="lessRounds">-</button>
+                    <button  class="btn-action" @click="totalRounds -= 1">-</button>
                     <span class="form__input--value"> x{{ this.totalRounds }}</span>
-                    <button class="btn-action" @click="addRounds">+</button>
+                    <button class="btn-action" @click="totalRounds += 1">+</button>
                 </div>
             </div>
             <div class="session-time">{{ this.formatTime((this.breakTime + this.workTime) * this.totalRounds) }}</div>
@@ -82,28 +82,6 @@ export default {
         }
     },
     methods: {
-        addWorkTime(){
-            this.workTime+=5;
-            this.timeOn+=5;
-        },
-        lessWorkTime(){
-            this.workTime-=5;
-            this.timeOn-=5;
-        },
-        addBreakTime(){
-            this.breakTime+=5;
-            this.timeOff+=5;
-        },
-        lessBreakTime(){
-            this.breakTime-=5;
-            this.timeOff-=5;
-        },
-        addRounds(){
-            this.totalRounds++;
-        },
-        lessRounds(){
-            this.totalRounds--;
-        },
         startClock(){
             if(this.isActive){
                 this.isActive = false;
