@@ -45,8 +45,8 @@ export default {
       this.listResult = [];
       if (this.selected > 0) {
         this.percentArray.forEach((items) => {
-          let weight = parseInt((this.charge * items) / this.selected);
-  
+          let weight = parseInt((parseFloat(this.charge) * items) / this.selected);
+        
           this.listResult.push({weight, items});
           // console.log(items + " " + weight);
         });
