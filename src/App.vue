@@ -1,9 +1,4 @@
 <template>
-  <!-- <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">StopWatch</router-link>
-  </nav> -->
-  <!--  -->
   <nav class="nav">
     <router-link to="/weight" class="nav__link nav__link">
       <font-awesome-icon icon="weight-hanging" size="lg" />
@@ -11,7 +6,7 @@
     </router-link>
     <router-link to="/stopwatch" class="nav__link nav__link">
       <font-awesome-icon icon="stopwatch" size="lg" />
-      <span class="nav__text">stopwatch</span>
+      <span class="nav__text">Stopwatch</span>
     </router-link>
     <router-link to="/timer" class="nav__link nav__link">
       <font-awesome-icon icon="stopwatch-20" size="lg" />
@@ -19,7 +14,7 @@
     </router-link>
     <router-link to="/settings" class="nav__link nav__link">
       <font-awesome-icon icon="sliders" size="lg" />
-      <span class="nav__text">settings</span>
+      <span class="nav__text">Settings</span>
     </router-link>
   </nav>
   <!--  -->
