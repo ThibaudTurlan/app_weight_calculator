@@ -25,7 +25,7 @@ export default {
   name: "app",
   data() {
     return {
-      time: '00:00,00',
+      time: '00:00.00',
       timeBegan: null,
       timeStopped: null,
       stoppedDuration: 0,
@@ -78,13 +78,13 @@ export default {
       let hour = timeElapsed.getUTCHours();
       let min = timeElapsed.getUTCMinutes();
       let sec = timeElapsed.getUTCSeconds();
-      let ms = timeElapsed.getUTCMilliseconds();
+      let ms = Math.round(timeElapsed.getUTCMilliseconds()/ 100);
       
       this.time = 
-        this.zeroPrefix(hour, 2) + ":" + 
-        this.zeroPrefix(min, 2) + ":" + 
-        this.zeroPrefix(sec, 2) + "," + 
-        this.zeroPrefix(ms, 3);
+          this.zeroPrefix(hour, 2) + ":" +  
+          this.zeroPrefix(min, 2) + ":" + 
+          this.zeroPrefix(sec, 2) + "." + 
+          this.zeroPrefix(ms, 1);
       
     },
     zeroPrefix(num, digit) {
