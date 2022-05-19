@@ -80,12 +80,18 @@ export default {
       let sec = timeElapsed.getUTCSeconds();
       let ms = Math.round(timeElapsed.getUTCMilliseconds()/ 100);
       
-      this.time = 
+      if(hour >= 1){
+        this.time = 
           this.zeroPrefix(hour, 2) + ":" +  
           this.zeroPrefix(min, 2) + ":" + 
           this.zeroPrefix(sec, 2) + "." + 
           this.zeroPrefix(ms, 1);
-      
+      } else {
+        this.time = 
+          this.zeroPrefix(min, 2) + ":" + 
+          this.zeroPrefix(sec, 2) + "." + 
+          this.zeroPrefix(ms, 1);
+      }
     },
     zeroPrefix(num, digit) {
       var zero = '';
