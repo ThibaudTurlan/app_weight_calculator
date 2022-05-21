@@ -16,7 +16,13 @@
         <li v-for="(item, index) in laps" :key="index"><span>Lap {{index + 1}}</span> <span>{{ item }}</span></li>
       </ul>
     </div>  
+    <p>{{ count }}</p>
+	<p>
+		<button @click="increment">+</button>
+		<button @click="decrement">-</button>
+	</p>
   </div>
+  
 </template>
 
 <script>
@@ -99,6 +105,17 @@ export default {
         zero += '0';
       }
       return (zero + num).slice(-digit);
+    },
+    increment() {
+      this.$store.commit('increment');
+    },
+    decrement() {
+      this.$store.commit('decrement');
+    }
+  },
+  computed: {
+    count() {
+      return this.$store.state.count;
     }
   },
 };
