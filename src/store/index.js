@@ -6,13 +6,20 @@ export default createStore({
     createPersistedState()
   ],
   state: {
-    count: 0
+    count: 0,
+    times: []
   },
   getters: {
   },
   mutations: {
     increment: state => state.count++,
-    decrement: state => state.count--
+    decrement: state => state.count--,
+    add(state, value) {
+      state.times.push({ id: state.times.length, time: value });
+    },
+    reset(state) {
+      state.times = [];
+    },
   },
   actions: {
   },

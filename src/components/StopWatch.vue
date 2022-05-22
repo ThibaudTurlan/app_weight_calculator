@@ -73,10 +73,13 @@ export default {
       this.timeStopped = null;
       this.time = "00:00.00";
       this.laps = [];
+      this.$store.commit("reset");
+
     },
     lap() {
       this.laps.push(this.time);
       console.log(this.timeBegan);
+      this.$store.commit("add", this.time);
     },
     clockRunning(){
       let currentTime = new Date();
