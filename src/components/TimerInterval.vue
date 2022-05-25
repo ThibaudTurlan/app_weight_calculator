@@ -237,6 +237,7 @@ h1, p {
     text-transform: uppercase;
     font-weight: 700;
     margin: 10px 0 40px 0;
+    letter-spacing: 2px;
 }
 
 /* .form-setting {
@@ -259,10 +260,17 @@ h1, p {
 
 }
 
+
 .form__input--btn-action {
     width: 140px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
     justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
 
 }
@@ -305,6 +313,7 @@ h1, p {
     text-transform: uppercase;
     font-weight: 700;
     font-size: 22px;
+    letter-spacing: 2px;
 }
 
 .session-time {
@@ -312,7 +321,7 @@ h1, p {
     font-size: 50px;
     font-weight: 700;
 
-    margin: 30px 0 40px 0;
+    margin: 8% 0 8% 0;
 }
 
 /* CLOCK */
@@ -323,15 +332,27 @@ h1, p {
     border-radius: 50%;
     width: 320px;
     height: 320px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
 }
 .circle-clock {
     width: 320px;
     height: 320px;
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -ms-flex-pack: distribute;
     justify-content: space-around;
 
     position: relative;
@@ -354,7 +375,11 @@ h1, p {
 }
 
 .timer-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: space-evenly;
+    -ms-flex-pack: space-evenly;
     justify-content: space-evenly;
 
 }
@@ -370,13 +395,21 @@ h1, p {
 	position: absolute;
 	top: 38%;
 	left: 50%;
+	-webkit-transform: translate(-50%, -50%);
+	-ms-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	/* z-index: -1; */
 }
 
 .progress-ring__circle {
+	-webkit-transition: 0.5s;
+	-o-transition: 0.5s;
 	transition: 0.5s;
+	-webkit-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
 	transform: rotate(-90deg);
+	-webkit-transform-origin: 50% 50%;
+	-ms-transform-origin: 50% 50%;
 	transform-origin: 50% 50%;
 	stroke: rgb(51, 65, 255);
 }
