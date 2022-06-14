@@ -1,9 +1,9 @@
 <template>
   <div class="container">
     <main>
-      <h1>calculate items</h1>
+      <h1>Weight Calculate</h1>
       <div>
-        <input type="text" name="charge" v-model="prefixKG" id="charge" />
+        <input type="text" name="charge" v-model="charge" id="charge" />
         <select name="pets" v-model="selected" id="select-items" > 
           <option value="Choose" selected disabled hidden>Choose</option>
           <option value="0.70">70%</option>
