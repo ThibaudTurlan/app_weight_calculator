@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkapp_weight_calculator"]=self["webpackChunkapp_weight_calculator"]||[]).push([[443],{125:function(t,a,c){c.r(a),c.d(a,{default:function(){return s}});var e=c(252);const n={class:"about"};function u(t,a,c,u,r,l){const o=(0,e.up)("WeightCalculator");return(0,e.wg)(),(0,e.iD)("div",n,[(0,e.Wm)(o)])}var r=c(797),l={name:"WeightCalculatorView",components:{WeightCalculator:r.Z}},o=c(744);const i=(0,o.Z)(l,[["render",u]]);var s=i}}]);
+//# sourceMappingURL=about.6f60f4cb.js.map

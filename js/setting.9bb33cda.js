@@ -1,0 +1,2 @@
+"use strict";(self["webpackChunkapp_weight_calculator"]=self["webpackChunkapp_weight_calculator"]||[]).push([[314],{251:function(t,n,e){e.r(n),e.d(n,{default:function(){return p}});var a=e(252);function c(t,n,e,c,u,r){const i=(0,a.up)("SettingPage");return(0,a.wg)(),(0,a.iD)("div",null,[(0,a.Wm)(i)])}const u={},r=u;var i=r,o={name:"settingView",components:{SettingPage:i}},s=e(744);const l=(0,s.Z)(o,[["render",c]]);var p=l}}]);
+//# sourceMappingURL=setting.9bb33cda.js.map
